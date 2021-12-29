@@ -2,6 +2,7 @@ const express = require('express')
 const { PORT } = require('./src/globals')
 const router = require('./src/router')
 const passport = require('passport')
+const { testDBConnection } = require('./src/utils/db')
 require('./src/helpers/auth')
 
 const app = express()
@@ -12,4 +13,5 @@ app.use('/', router)
 
 app.listen(PORT, () => {
   console.log('Server Running at port', PORT)
+  testDBConnection()
 })
