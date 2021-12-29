@@ -5,7 +5,7 @@ const loginController = require('./controllers/loginController')
 const registerController = require('./controllers/registerController')
 const galleryController = require('./controllers/galleryController')
 
-router.get('/', (req, res) => {
+router.post('/', passport.authenticate('local'), (req, res) => {
   res.send('Index Router')
 })
 
