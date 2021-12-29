@@ -6,5 +6,6 @@
     },
     "eslint.validate": [
         "javascript"
-    ]
+    ],
+    "javascript.suggestionActions.enabled": false
 }

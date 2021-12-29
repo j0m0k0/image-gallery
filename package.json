@@ -24,5 +24,10 @@
     "eslint-plugin-promise": "^5.2.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "express": "^4.17.2",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0"
   }
 }
