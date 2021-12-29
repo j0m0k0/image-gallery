@@ -19,4 +19,5 @@ const testDBConnection = async () => {
   }
 }
 
+module.exports.db = sequelize
 module.exports.testDBConnection = testDBConnection

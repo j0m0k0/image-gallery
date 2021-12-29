@@ -11,7 +11,7 @@ app.use(passport.initialize())
 app.use(express.json())
 app.use('/', router)
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await testDBConnection()
   console.log('Server Running at port', PORT)
-  testDBConnection()
 })
