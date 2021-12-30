@@ -9,6 +9,8 @@ const sequelize = new Sequelize({
   port: process.env.DB_PORT
 })
 
+sequelize.options.logging = false
+
 const testDBConnection = async () => {
   try {
     await sequelize.authenticate()

@@ -1,5 +1,5 @@
 {
   "events": {
-    "start": "echo \"\\x1Bc\" NodeJS Course of Maktabkhooneh"
+    "start": "echo \"\\x1Bc\"NodeJS Course of Maktabkhooneh"
   }
 }

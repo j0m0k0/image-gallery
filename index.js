@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true })) // idk what is this
 app.use(passport.initialize())
-app.use('/', routes)
+app.use('/api', routes)
 
 app.listen(process.env.APP_PORT, async () => {
   await testDBConnection()

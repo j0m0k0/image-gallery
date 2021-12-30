@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const UserModel = require('../models/User')
 const bcrypt = require('bcrypt')
 
-const expirationtimeInMs = process.env.JWT_EXPIRATION_TIME
 const secret = process.env.JWT_SECRET
 
 const login = async (req, res, next) => {
@@ -19,7 +18,7 @@ const login = async (req, res, next) => {
       res.locals.user = { id: isUser.id, email }
       next()
     } else {
-      res.status(400).json({
+      res.status(401).json({
         error: 'Incorrect username or password'
       })
     }
@@ -35,15 +34,17 @@ const createJwtForUser = async (req, res) => {
   if (res.locals.user) {
     user = res.locals.user
   } else {
-    res.status(400).json({
+    res.status(401).json({
       error: 'user not found'
     })
   }
 
+  const expirationDate = new Date()
+  expirationDate.setSeconds(expirationDate.getSeconds() + Number(process.env.JWT_EXPIRATION_TIME))
   const payload = {
     email: user.email,
     id: user.id,
-    expiration: Date.now() + parseInt(expirationtimeInMs)
+    expiration: expirationDate
   }
 
   const token = jwt.sign(JSON.stringify(payload), secret)
@@ -57,7 +58,7 @@ const createJwtForUser = async (req, res) => {
     )
     .status(200)
     .json({
-      message: 'You have logged in :D'
+      message: 'Logged In'
     })
 }
 
