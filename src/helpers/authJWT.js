@@ -44,7 +44,7 @@ const authenticateWithJwt = (req, res, next) => {
     if (now.getTime() > new Date(user.expiration).getTime()) {
       return res.status(401).json({ message: 'Unauthenticated' })
     } else {
-      return res.json({ message: 'Authenticated' })
+      next()
     }
   })(req, res, next)
 }
