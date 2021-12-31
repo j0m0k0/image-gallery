@@ -3,7 +3,16 @@ const listOfImages = (req, res) => {
 }
 
 const addImageToGallery = (req, res) => {
-  res.send('Add')
+  // console.log('file is', req.file)
+  if (req.fileValidationError !== undefined) {
+    res.status(403).json({ message: req.fileValidationError })
+    return
+  }
+  if (req.file) {
+    res.json({ message: 'File received' })
+  } else {
+    res.status(403).json({ message: 'File not received' })
+  }
 }
 
 const removeImageFromGallery = (req, res) => {

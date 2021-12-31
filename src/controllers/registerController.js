@@ -8,7 +8,7 @@ const registerController = async (req, res) => {
     const hash = bcrypt.hashSync(req.body.password, salt)
     await UserModel.create({ email: req.body.email, password: hash })
   } catch (e) {
-    console.log(e)
+    // console.log(e)
     res.status(401).json({ message: 'This user already exists!' })
     return
   }

@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
       })
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     res.status(500).json({ error })
   }
 }
