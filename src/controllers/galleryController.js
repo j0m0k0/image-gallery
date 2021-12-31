@@ -1,4 +1,5 @@
 const ImageModel = require('../models/Image')
+const fs = require('fs')
 
 const listOfImages = async (req, res) => {
   // filter images and return the url of images that uploaded by requested user
@@ -20,7 +21,7 @@ const addImageToGallery = async (req, res) => {
     })
 
     if (newImage) {
-      res.json({ message: 'File received' })
+      res.json({ message: 'File received', imageId: newImage.id })
     } else {
       res.status(403).json({ message: 'File not received' })
     }
@@ -29,8 +30,37 @@ const addImageToGallery = async (req, res) => {
   }
 }
 
-const removeImageFromGallery = (req, res) => {
-  res.send('Remove')
+const removeImageFromGallery = async (req, res) => {
+  // receives an image id
+  // checks if the image id belongs to the requested user
+  // if yes, deletes the image
+  // otherwise, returns 403
+  const { imageId } = req.body
+  if (imageId === undefined) {
+    res.status(403).json({ message: 'imageId should not be null' })
+    return
+  }
+  const isImage = await ImageModel.findOne({
+    where: {
+      id: imageId,
+      user_id: req.user.id
+    }
+  })
+
+  if (isImage) {
+    await fs.unlink(isImage.src, (err) => {
+      if (err) { res.status(403).json('failed to delete image') }
+    })
+    await ImageModel.destroy({
+      where: {
+        id: imageId,
+        user_id: req.user.id
+      }
+    })
+    res.json({ message: 'image deleted' })
+  } else {
+    res.status(403).json({ message: 'image not found' })
+  }
 }
 
 module.exports = listOfImages
