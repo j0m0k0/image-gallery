@@ -1,6 +1,6 @@
 const passport = require('passport')
 const JwtStrategy = require('passport-jwt').Strategy
-
+const UserModel = require('../models/User')
 const secret = process.env.JWT_SECRET
 
 const cookieExtractor = req => {
@@ -16,15 +16,31 @@ const cookieExtractor = req => {
 passport.use('jwt', new JwtStrategy({
   jwtFromRequest: cookieExtractor,
   secretOrKey: secret
-}, (jwtPayload, done) => {
-  const { expiration } = jwtPayload
+}, async (jwtPayload, done) => {
+  const { expiration, id } = jwtPayload
 
+  // after decoding the jwt with our secret key,
+  // Two things will be checked
+  // 1. If token expired or not
+  // 2. If user with the email in the jwt token really exists or not
   const now = new Date()
   if (now.getTime() > new Date(expiration).getTime()) {
     done('Unauthorized', false)
   }
 
-  done(null, jwtPayload)
+  console.log('user id is', id)
+  const isUser = await UserModel.findOne({
+    where: {
+      id
+    }
+  })
+
+  if (isUser) {
+    done(null, jwtPayload)
+    return
+  }
+
+  done('Unauthorized', false)
 }))
 
 passport.serializeUser(function (user, done) {
@@ -43,6 +59,7 @@ const authenticateWithJwt = (req, res, next) => {
     if (now.getTime() > new Date(user.expiration).getTime()) {
       return res.status(401).json({ message: 'Unauthenticated' })
     } else {
+      req.user = user
       next()
     }
   })(req, res, next)

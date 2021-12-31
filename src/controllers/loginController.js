@@ -19,7 +19,7 @@ const login = async (req, res, next) => {
       next()
     } else {
       res.status(401).json({
-        error: 'Incorrect username or password'
+        error: 'Incorrect email or password'
       })
     }
   } catch (error) {
