@@ -11,9 +11,9 @@ const listOfImages = async (req, res) => {
 
   const result = []
 
-  await imagesUploadedByUser.map((image) => result.push({ id: image.id, src: image.src }))
+  await imagesUploadedByUser.map((image) => result.push({ id: image.id, src: req.protocol + '://' + req.get('host') + '/' + image.src }))
 
-  console.log(imagesUploadedByUser)
+  // console.log(imagesUploadedByUser)
   res.json(result)
 }
 

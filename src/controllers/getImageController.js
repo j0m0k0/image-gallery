@@ -1,3 +1,5 @@
+const path = require('path')
+const fs = require('fs')
 const ImageModel = require('../models/Image')
 
 const getImageController = async (req, res) => {
@@ -10,10 +12,14 @@ const getImageController = async (req, res) => {
   })
 
   if (isImage) {
-    console.log('found!', isImage.src)
-    res.sendFile(isImage.src, {
-      root: './'
-    })
+    const imageExists = fs.existsSync(path.join(__dirname, '../../', isImage.src))
+    if (imageExists) {
+      res.sendFile(isImage.src, {
+        root: path.join(__dirname, '../../')
+      })
+    } else {
+      res.status(404).json({ message: 'Not Found' })
+    }
   } else {
     res.status(404).json({ message: 'Not Found' })
   }

@@ -28,7 +28,7 @@ passport.use('jwt', new JwtStrategy({
     done('Unauthorized', false)
   }
 
-  console.log('user id is', id)
+  // console.log('user id is', id)
   const isUser = await UserModel.findOne({
     where: {
       id
