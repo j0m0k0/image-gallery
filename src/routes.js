@@ -5,7 +5,8 @@ const galleryController = require('./controllers/galleryController')
 const { login, createJwtForUser } = require('./controllers/loginController')
 const logoutController = require('./controllers/logoutController')
 const { authenticateWithJwt } = require('./helpers/authJWT')
-const { uploadImage, uploadImageHandler } = require('./helpers/fileUpload')
+const { uploadImageHandler } = require('./helpers/fileUpload')
+const getImageController = require('./controllers/getImageController')
 
 router.get('/', (req, res) => {
   res.redirect(process.env.UI_WEBSITE)
@@ -19,5 +20,6 @@ router.post('/logout', logoutController)
 router.post('/gallery/add', authenticateWithJwt, uploadImageHandler, galleryController.add)
 router.post('/gallery/remove', authenticateWithJwt, galleryController.remove)
 router.post('/gallery', authenticateWithJwt, galleryController)
+router.get('/public/uploads/:name', authenticateWithJwt, getImageController)
 
 module.exports = router

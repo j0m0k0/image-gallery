@@ -3,7 +3,18 @@ const fs = require('fs')
 
 const listOfImages = async (req, res) => {
   // filter images and return the url of images that uploaded by requested user
-  res.send('List')
+  const imagesUploadedByUser = await ImageModel.findAll({
+    where: {
+      user_id: req.user.id
+    }
+  })
+
+  const result = []
+
+  await imagesUploadedByUser.map((image) => result.push({ id: image.id, src: image.src }))
+
+  console.log(imagesUploadedByUser)
+  res.json(result)
 }
 
 const addImageToGallery = async (req, res) => {
