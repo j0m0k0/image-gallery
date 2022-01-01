@@ -3,10 +3,12 @@ const express = require('express')
 const routes = require('./src/routes')
 const passport = require('passport')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 require('./src/helpers/authJWT')
 
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true })) // idk what is this
