@@ -54,10 +54,10 @@ passport.deserializeUser(function (user, done) {
 const authenticateWithJwt = (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (err, user, info) => {
     if (err) { return next(err) }
-    if (!user) { return res.status(401).json({ message: 'Unauthenticated' }) }
+    if (!user) { return res.status(401).json({ message: 'غیرمجاز' }) }
     const now = new Date()
     if (now.getTime() > new Date(user.expiration).getTime()) {
-      return res.status(401).json({ message: 'Unauthenticated' })
+      return res.status(401).json({ message: 'غیرمجاز' })
     } else {
       req.user = user
       next()

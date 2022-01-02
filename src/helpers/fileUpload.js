@@ -15,7 +15,7 @@ const uploadImage = multer({
   fileFilter: function (req, file, callback) {
     const ext = path.extname(file.originalname)
     if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg' && ext !== '.svg') {
-      req.fileValidationError = 'Wrong file type, only accept images'
+      req.fileValidationError = 'فایل ارسال شده عکس نبود'
       return callback(null, true)
     }
     callback(null, true)
@@ -25,7 +25,7 @@ const uploadImage = multer({
 const uploadImageHandler = (req, res, next) => {
   uploadImage(req, res, (err) => {
     if (err instanceof multer.MulterError) {
-      res.status(403).json({ message: 'We only accept a single image file' })
+      res.status(403).json({ message: 'با هر درخواست تنها می توانید یک عکس ارسال کنید' })
       return
     }
     next()

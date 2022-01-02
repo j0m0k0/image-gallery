@@ -7,6 +7,7 @@ const logoutController = require('./controllers/logoutController')
 const { authenticateWithJwt } = require('./helpers/authJWT')
 const { uploadImageHandler } = require('./helpers/fileUpload')
 const getImageController = require('./controllers/getImageController')
+const checkController = require('./controllers/checkController')
 
 router.get('/', (req, res) => {
   res.redirect(process.env.UI_WEBSITE)
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
 router.post('/login', login, createJwtForUser)
 router.post('/register', registerController)
 router.post('/logout', logoutController)
+router.post('/check', authenticateWithJwt, checkController)
 
 // Protected Apis
 router.post('/gallery/add', authenticateWithJwt, uploadImageHandler, galleryController.add)

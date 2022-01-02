@@ -4,11 +4,11 @@ const logoutController = (req, res) => {
       .clearCookie('jwt')
       .status(200)
       .json({
-        message: 'You have logged out'
+        message: 'خارج شدید'
       })
   } else {
     res.status(401).json({
-      error: 'Unauthorized'
+      error: 'امکان اجرای این دستور را ندارید'
     })
   }
 }

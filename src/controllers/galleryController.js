@@ -32,12 +32,12 @@ const addImageToGallery = async (req, res) => {
     })
 
     if (newImage) {
-      res.json({ message: 'File received', imageId: newImage.id })
+      res.json({ message: 'فایل دریافت شد', imageId: newImage.id })
     } else {
-      res.status(403).json({ message: 'File not received' })
+      res.status(403).json({ message: 'فایل دریافت نشد' })
     }
   } else {
-    res.status(403).json({ message: 'File not received' })
+    res.status(403).json({ message: 'فایل دریافت نشد' })
   }
 }
 
@@ -48,7 +48,7 @@ const removeImageFromGallery = async (req, res) => {
   // otherwise, returns 403
   const { imageId } = req.body
   if (imageId === undefined) {
-    res.status(403).json({ message: 'imageId should not be null' })
+    res.status(403).json({ message: 'باید تصویری برای حذف انتخاب کنید' })
     return
   }
   const isImage = await ImageModel.findOne({
@@ -68,9 +68,9 @@ const removeImageFromGallery = async (req, res) => {
         user_id: req.user.id
       }
     })
-    res.json({ message: 'image deleted' })
+    res.json({ message: 'تصویر حذف شد' })
   } else {
-    res.status(403).json({ message: 'image not found' })
+    res.status(403).json({ message: 'تصویری یافت نشد' })
   }
 }
 

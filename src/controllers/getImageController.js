@@ -18,10 +18,10 @@ const getImageController = async (req, res) => {
         root: path.join(__dirname, '../../')
       })
     } else {
-      res.status(404).json({ message: 'Not Found' })
+      res.status(404).json({ message: 'یافت نشد' })
     }
   } else {
-    res.status(404).json({ message: 'Not Found' })
+    res.status(404).json({ message: 'یافت نشد' })
   }
 }
 

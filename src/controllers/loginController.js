@@ -19,7 +19,7 @@ const login = async (req, res, next) => {
       next()
     } else {
       res.status(401).json({
-        error: 'Incorrect email or password'
+        error: 'ایمیل یا رمزعبور اشتباه است'
       })
     }
   } catch (error) {
@@ -58,7 +58,8 @@ const createJwtForUser = async (req, res) => {
     )
     .status(200)
     .json({
-      message: 'Logged In'
+      message: 'با موفقیت وارد شدید',
+      email: user.email
     })
 }
 
