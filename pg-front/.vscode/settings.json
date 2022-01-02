@@ -1,0 +1,14 @@
+{
+    "editor.tabSize": 2,
+    "files.insertFinalNewline": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.validate": [
+        "javascript"
+    ],
+    "javascript.suggestionActions.enabled": false,
+    "files.associations": {
+        "*.js": "javascriptreact"
+    }
+}
